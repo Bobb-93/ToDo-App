@@ -1,0 +1,24 @@
+tmp/**
+**/*.tmp
+**/*.old
+**/.tags*
+**/*fuse*
+**/*.log
+logs/**
+nohup*
+subl_*
+
+# all hidden files, except...
+.*
+!.gitignore
+!.gitmodules
+!.vscode
+!.bin
+
+**/node_modules/**
+package-lock.json
+.sass-cache
+
+# *.sublime-workspace
+# *.sublime-project
+
