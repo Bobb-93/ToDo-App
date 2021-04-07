@@ -147,10 +147,13 @@ nodes.todoItems.addEventListener('click', function (e) {
 		if (e.target.parentNode.tagName === "UL"){
 			e.target.children[1].classList.toggle('completed');
 		}
-		
 		//if we click exactly on the list items:
-		if (e.target.parentNode.tagName === "LI" && !e.target.classList.contains("todoID")){
+		else if (e.target.parentNode.tagName === "LI" && !e.target.classList.contains("todoID")){
 			e.target.classList.toggle('completed');
+		}
+		//if we click exactly on span.todoID
+		else if (e.target.classList.contains("todoID")){
+			e.target.nextElementSibling.classList.toggle('completed');
 		}
 	}
 })
