@@ -143,14 +143,14 @@ nodes.todoItems.addEventListener('click', removeTodo, {capture: true})
 // togleComplete
 nodes.todoItems.addEventListener('click', function (e) {
 	if (e.target.tagName !== "DIV"){
-		//if we click NOT exactly on the list items:
+		//if we click NOT exactly on the text span:
 		if (e.target.parentNode.tagName === "UL"){
-			e.target.classList.toggle('completed');
+			e.target.children[1].classList.toggle('completed');
 		}
 		
 		//if we click exactly on the list items:
-		if (e.target.parentNode.tagName === "LI"){
-			e.target.parentNode.classList.toggle('completed');
+		if (e.target.parentNode.tagName === "LI" && !e.target.classList.contains("todoID")){
+			e.target.classList.toggle('completed');
 		}
 	}
 })
