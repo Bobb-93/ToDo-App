@@ -140,7 +140,7 @@ nodes.addTodoInput.addEventListener('keyup', function(e) {
 // remove Todo Item:
 nodes.todoItems.addEventListener('click', removeTodo, {capture: true})
 
-// togleComplete
+// togleComplete - slightly changed
 nodes.todoItems.addEventListener('click', function (e) {
 	if (e.target.tagName !== "DIV"){
 		//if we click NOT exactly on the text span:
