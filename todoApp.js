@@ -9,25 +9,25 @@ const displayTodoItemsCount = function() {
 const renderTodos = function(e) {
 	// clean current todos:
 	nodes.todoItems.innerHTML = '';
-
+	
 	// add todo item at the end
 	todos.forEach( todo => {
 		nodes.todoItems.innerHTML += `
 		<li data-id=${todo.id} >
-			<span class="todoID">${todo.id}.</span>
-			<span class="${todo.completed?'completed':''}">${todo.title}</span>
-			<div class="removeTodo"><i class="far fa-trash-alt"></i></div>
+		<span class="todoID">${todo.id}.</span>
+		<span class="${todo.completed?'completed':''}">${todo.title}</span>
+		<div class="removeTodo"><i class="far fa-trash-alt"></i></div>
 		</li>
 		`;
 	})
-
+	
 	displayTodoItemsCount();
 }
 
 const addTodo = function() {
 	// get the input text:
 	const todoText = nodes.addTodoInput.value;
-
+	
 	// make the ID by geting the last used id:
 	// varaint 1
 	// let id;
@@ -36,28 +36,28 @@ const addTodo = function() {
 	// }else{
 	// 	id = 1;
 	// }
-
+	
 	// variant 2
 	const id = todos.length ? todos[todos.length-1].id + 1 : 1;
-
+	
 	// create the new todo object
 	const newTodo = {
 		"id": id,
 		"title": todoText,
 		"completed": false
 	};
-
+	
 	// add new todo object to the end of todos array:
 	// todos = [...todos, newTodo];
 	todos.push(newTodo);
-
-
+	
+	
 	// render todos:
 	renderTodos();
-
+	
 	// clear input text
 	nodes.addTodoInput.value = '';
-
+	
 	// focus on input for new todo:
 	nodes.addTodoInput.focus();
 }
@@ -72,24 +72,24 @@ const removeTodo = function (e) {
 	}else{
 		return;
 	}
-
+	
 	// get the index of todo to be removed from todos array:
 	let idx = todos.findIndex(todo => todo.id === todoID);
-
+	
 	// remove from todos array the element with index idx:
 	idx>=0 && todos.splice(idx,1);
-
+	
 	// save to local storage
 	// note, that localStorage.setItem() expects the second argument to be string
 	localStorage.setItem('todos',JSON.stringify(todos));
-
+	
 	// render todos:
 	renderTodos();
 }
 
 const completeTodo = function(e) {
 	// HW: implement function
-
+	
 }
 
 // DOM cache:
@@ -143,6 +143,14 @@ nodes.todoItems.addEventListener('click', removeTodo, {capture: true})
 // togleComplete
 nodes.todoItems.addEventListener('click', function (e) {
 	if (e.target.tagName !== "DIV"){
-		e.target.classList.toggle('completed');
+		//if we click NOT exactly on the list items:
+		if (e.target.parentNode.tagName !== "MAIN" && e.target.tagName !== "SPAN"){
+			e.target.classList.toggle('completed');
+		}
+		
+		//if we click exactly on the list items:
+		if (e.target.parentNode.tagName !== "UL"){
+			e.target.parentNode.classList.toggle('completed');
+		}
 	}
 })
