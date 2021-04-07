@@ -144,12 +144,12 @@ nodes.todoItems.addEventListener('click', removeTodo, {capture: true})
 nodes.todoItems.addEventListener('click', function (e) {
 	if (e.target.tagName !== "DIV"){
 		//if we click NOT exactly on the list items:
-		if (e.target.parentNode.tagName !== "MAIN" && e.target.tagName !== "SPAN"){
+		if (e.target.parentNode.tagName === "UL"){
 			e.target.classList.toggle('completed');
 		}
 		
 		//if we click exactly on the list items:
-		if (e.target.parentNode.tagName !== "UL"){
+		if (e.target.parentNode.tagName === "LI"){
 			e.target.parentNode.classList.toggle('completed');
 		}
 	}
