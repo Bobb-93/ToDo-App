@@ -69,7 +69,7 @@ header{
 .todo-items li:nth-child(2n){
     background: #777;
 }
-.removeTodo,.editTodo{
+.removeTodo,.editTodo, .completeTodo{
     float: right;
     width: 2em;
     height: 100%;
@@ -77,7 +77,7 @@ header{
     box-sizing: border-box;
     color: #FF7E7E;
 }
-.removeTodo:hover, .editTodo:hover{
+.removeTodo:hover, .editTodo:hover, .completeTodo:hover{
     cursor: pointer;
 }
 
@@ -88,13 +88,13 @@ header{
     height: 100%;
     opacity: .7;
 }
-.removeTodo i::before, .editTodo i::before{
+.removeTodo i::before, .editTodo i::before, .completeTodo::before{
     vertical-align: middle;
     line-height: 3em;
     opacity: .7;
 }
 
-.removeTodo:hover i::before, .editTodo:hover i::before{
+.removeTodo:hover i::before, .editTodo:hover i::before, .completeTodo:hover i::before{
     opacity: 1;
 }
 
@@ -104,5 +104,7 @@ header{
 
 .completed{
     text-decoration: line-through;
+    color: green;
 }
+
 

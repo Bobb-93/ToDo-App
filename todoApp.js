@@ -6,19 +6,40 @@ const displayTodoItemsCount = function() {
 	nodes.totalItemsCount.innerHTML = count;
 }
 
+const displayCompletedItemsCount = function() {
+	let count = 0;
+	for (let i = 0; i < todos.length; i++) {
+		if(todos[i].completed === true){
+			count += 1;
+		}else{
+			count -= 1;
+		}
+	}
+	nodes.completedItemsCount.innerHTML = count;
+}
+
 const renderTodos = function(e) {
 	// clean current todos:
 	nodes.todoItems.innerHTML = '';
 	
+	//<li data-id=${todo.id}  class="${todo.completed?'completed':''}">
+	
 	// add todo item at the end
 	todos.forEach( todo => {
+		console.log(`$$$$`);
+		console.log(`todo.id = ${todo.id}`);
+		console.log(`todo.completed = ${todo.completed}`);
+		console.log(`todo.title = ${todo.title}`);
+
 		nodes.todoItems.innerHTML += `
-		<li data-id=${todo.id} >
+		<li data-id=${todo.id}  class="${todo.completed?'completed':''}">
 		<span class="todoID">${todo.id}.</span>
-		<span class="${todo.completed?'completed':''}">${todo.title}</span>
+		<span>${todo.title}</span>
 		<div class="removeTodo"><i class="far fa-trash-alt"></i></div>
+		<div class="completeTodo"><i class="far fa-square"></i></div>
 		</li>
 		`;
+		console.log(`$$$$`);
 	})
 	
 	displayTodoItemsCount();
@@ -28,16 +49,6 @@ const addTodo = function() {
 	// get the input text:
 	const todoText = nodes.addTodoInput.value;
 	
-	// make the ID by geting the last used id:
-	// varaint 1
-	// let id;
-	// if( todos.length > 0){
-	// 	id = todos[todos.length-1].id + 1;
-	// }else{
-	// 	id = 1;
-	// }
-	
-	// variant 2
 	const id = todos.length ? todos[todos.length-1].id + 1 : 1;
 	
 	// create the new todo object
@@ -87,9 +98,66 @@ const removeTodo = function (e) {
 	renderTodos();
 }
 
-const completeTodo = function(e) {
-	// HW: implement function
+const completeTodo = function (e) {
+	if (e.target.tagName === "DIV"){
+		return;
+	}
+
+	// if we click NOT exactly on the list items:
+	if (e.target.tagName === "LI"){
+		e.target.classList.toggle('completed');
+		console.log(e.target.dataset.id);
+
+		currentItem = e.target.dataset.id;
+		console.log(currentItem);
+	}
+	//if we click exactly on the list items:
+	else if (e.target.tagName === "SPAN"){
+		e.target.parentNode.classList.toggle('completed');
+		console.log(e.target.parentNode.dataset.id);
+
+		currentItem = e.target.parentNode.dataset.id;
+		console.log(currentItem);
+	}
+	//if we click on the checkboxes:
+	// else if (e.target.parentNode.tagName === "DIV"){
+	else if (e.target.parentNode.classList.contains("completeTodo")){
+		e.target.classList.toggle('fa-square');
+		e.target.classList.toggle('fa-check-square');
+		e.target.parentNode.parentNode.classList.toggle('completed');
+		
+		console.log(e.target.parentNode.parentNode.dataset.id);
+
+		currentItem = e.target.parentNode.parentNode.dataset.id;
+		console.log(currentItem);
+	}
+
+	console.log(`currentItem = ${currentItem}`);
+	displayCompletedItemsCount();
+	completeTodoInArray();
+
 	
+}
+
+const completeTodoInArray = function(){
+	console.log(`----`);
+	for (let i = 0; i < todos.length; i++) {
+		console.log(`todos[i].id = ${todos[i].id}`);
+		console.log(`currentItem = ${currentItem}`);
+		console.log(`todos[i].completed = ${todos[i].completed}`);
+
+		if(+todos[i].id === +currentItem && todos[i].completed === false){
+			console.log('ala');
+			todos[i].completed = true;
+			console.log(todos);
+			return;
+		}else{
+			console.log('bala');
+			todos[i].completed  = false;
+			console.log(todos);
+			return;
+		}
+	}
 }
 
 // DOM cache:
@@ -97,8 +165,11 @@ const nodes = {
 	'todoItems': document.querySelector('ul.todo-items'),
 	'addTodoInput': document.querySelector('.todo-add>input'),
 	'addTodoBtn': document.querySelector('.todo-add>.todo-add-btn'),
-	'totalItemsCount': document.querySelector('.todo-app .todos-total>.output')
+	'totalItemsCount': document.querySelector('.todo-app .todos-total>.output'),
+	'completedItemsCount': document.querySelector('.todo-app .completed-total>.output')
 }
+
+let currentItem;
 
 // let localStorage = window.localStorage;
 
@@ -140,20 +211,5 @@ nodes.addTodoInput.addEventListener('keyup', function(e) {
 // remove Todo Item:
 nodes.todoItems.addEventListener('click', removeTodo, {capture: true})
 
-// togleComplete - slightly changed
-nodes.todoItems.addEventListener('click', function (e) {
-	if (e.target.tagName !== "DIV"){
-		//if we click NOT exactly on the text span:
-		if (e.target.parentNode.tagName === "UL"){
-			e.target.children[1].classList.toggle('completed');
-		}
-		//if we click exactly on the list items:
-		else if (e.target.parentNode.tagName === "LI" && !e.target.classList.contains("todoID")){
-			e.target.classList.toggle('completed');
-		}
-		//if we click exactly on span.todoID
-		else if (e.target.classList.contains("todoID")){
-			e.target.nextElementSibling.classList.toggle('completed');
-		}
-	}
-})
+// togleComplete
+nodes.todoItems.addEventListener('click', completeTodo);
