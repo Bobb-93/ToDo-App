@@ -103,11 +103,11 @@ const completeTodo = function (e) {
 	}
 
 	let targetNode;
+	let targetSquare;
 	// if we click NOT exactly on the list items:
 	if (e.target.tagName === "LI"){
 		targetNode = e.target;
-
-		// console.log(e.target.dataset.id);
+		targetSquare = e.target.children[3].children[0];
 
 		currentItem = e.target.dataset.id;
 		// console.log(currentItem);
@@ -115,8 +115,7 @@ const completeTodo = function (e) {
 	//if we click exactly on the list items:
 	else if (e.target.tagName === "SPAN"){
 		targetNode = e.target.parentNode;
-
-		// console.log(e.target.parentNode.dataset.id);
+		targetSquare = e.target.parentNode.children[3].children[0];
 
 		currentItem = e.target.parentNode.dataset.id;
 		// console.log(currentItem);
@@ -124,18 +123,17 @@ const completeTodo = function (e) {
 	//if we click on the checkboxes:
 	// else if (e.target.parentNode.tagName === "DIV"){
 	else if (e.target.parentNode.classList.contains("completeTodo")){
-		e.target.classList.toggle('fa-square');
-		e.target.classList.toggle('fa-check-square');
-
 		targetNode = e.target.parentNode.parentNode;
-		
-		// console.log(e.target.parentNode.parentNode.dataset.id);
+		targetSquare = e.target;
 
 		currentItem = e.target.parentNode.parentNode.dataset.id;
 		// console.log(currentItem);
 	}
 
 	targetNode.classList.toggle('completed');
+	targetSquare.classList.toggle('fa-square');
+	targetSquare.classList.toggle('fa-check-square');
+
 	// console.log(`currentItem = ${currentItem}`);
 	displayCompletedItemsCount();
 	completeTodoInArray();
@@ -154,7 +152,7 @@ const completeTodoInArray = function(){
 			todos[i].completed = true;
 			console.log(todos);
 			return;
-		}else{
+		}else if(+todos[i].id === +currentItem && todos[i].completed === true){
 			console.log('bala');
 			todos[i].completed  = false;
 			console.log(todos);
