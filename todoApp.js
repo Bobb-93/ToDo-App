@@ -10,11 +10,13 @@ const displayCompletedItemsCount = function() {
 	let count = 0;
 	todos.forEach(
 		todo => {
-			if(todo.completed === true){
-				count += 1;
-			}else{
-				count = count;
-			}
+			// if(todo.completed === true){
+			// 	count += 1;
+			// }else{
+			// 	count = count;
+			// }
+
+			count = todo.completed ? count += 1 : count;
 		}
 	);
 	nodes.completedItemsCount.innerHTML = count;
