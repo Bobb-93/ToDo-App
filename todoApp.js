@@ -8,11 +8,15 @@ const displayTodoItemsCount = function() {
 
 const displayCompletedItemsCount = function() {
 	let count = 0;
-	for (let i = 0; i < todos.length; i++) {
-		if(todos[i].completed === true){
-			count += 1;
+	todos.forEach(
+		todo => {
+			if(todo.completed === true){
+				count += 1;
+			}else{
+				count = count;
+			}
 		}
-	}
+	);
 	nodes.completedItemsCount.innerHTML = count;
 }
 
@@ -20,27 +24,20 @@ const renderTodos = function(e) {
 	// clean current todos:
 	nodes.todoItems.innerHTML = '';
 	
-	//<li data-id=${todo.id}  class="${todo.completed?'completed':''}">
-	
 	// add todo item at the end
 	todos.forEach( todo => {
-		// console.log(`$$$$`);
-		// console.log(`todo.id = ${todo.id}`);
-		// console.log(`todo.completed = ${todo.completed}`);
-		// console.log(`todo.title = ${todo.title}`);
-
 		nodes.todoItems.innerHTML += `
 		<li data-id=${todo.id}  class="${todo.completed?'completed':''}">
 		<span class="todoID">${todo.id}.</span>
 		<span>${todo.title}</span>
 		<div class="removeTodo"><i class="far fa-trash-alt"></i></div>
-		<div class="completeTodo"><i class="far fa-square"></i></div>
+		<div class="completeTodo"><i class="far ${todo.completed?'fa-check-square':'fa-square'}"></i></div>
 		</li>
 		`;
-		// console.log(`$$$$`);
 	})
 	
 	displayTodoItemsCount();
+	displayCompletedItemsCount();
 }
 
 const addTodo = function() {
@@ -70,6 +67,7 @@ const addTodo = function() {
 	// focus on input for new todo:
 	nodes.addTodoInput.focus();
 }
+
 const removeTodo = function (e) {
 	// get id of todo to be removed
 	let todoID;
@@ -86,14 +84,15 @@ const removeTodo = function (e) {
 	let idx = todos.findIndex(todo => todo.id === todoID);
 	
 	// remove from todos array the element with index idx:
-	idx>=0 && todos.splice(idx,1);
+	idx>=0 && todos.splice(idx, 1);
 	
 	// save to local storage
 	// note, that localStorage.setItem() expects the second argument to be string
-	localStorage.setItem('todos',JSON.stringify(todos));
+	localStorage.setItem('todos', JSON.stringify(todos));
 	
 	// render todos:
 	renderTodos();
+	// displayCompletedItemsCount();
 }
 
 const completeTodo = function (e) {
@@ -108,7 +107,6 @@ const completeTodo = function (e) {
 	if (e.target.tagName === "LI"){
 		targetNode = e.target;
 		targetSquare = e.target.children[3].children[0];
-
 		currentItem = e.target.dataset.id;
 		// console.log(currentItem);
 	}
@@ -116,7 +114,6 @@ const completeTodo = function (e) {
 	else if (e.target.tagName === "SPAN"){
 		targetNode = e.target.parentNode;
 		targetSquare = e.target.parentNode.children[3].children[0];
-
 		currentItem = e.target.parentNode.dataset.id;
 		// console.log(currentItem);
 	}
@@ -125,7 +122,6 @@ const completeTodo = function (e) {
 	else if (e.target.parentNode.classList.contains("completeTodo")){
 		targetNode = e.target.parentNode.parentNode;
 		targetSquare = e.target;
-
 		currentItem = e.target.parentNode.parentNode.dataset.id;
 		// console.log(currentItem);
 	}
@@ -135,27 +131,25 @@ const completeTodo = function (e) {
 	targetSquare.classList.toggle('fa-check-square');
 
 	// console.log(`currentItem = ${currentItem}`);
-	displayCompletedItemsCount();
 	completeTodoInArray();
-
+	renderTodos();
 }
 
 const completeTodoInArray = function(){
-	console.log(`----`);
 	for (let i = 0; i < todos.length; i++) {
-		console.log(`todos[i].id = ${todos[i].id}`);
-		console.log(`currentItem = ${currentItem}`);
-		console.log(`todos[i].completed = ${todos[i].completed}`);
+		// console.log(`todos[i].id = ${todos[i].id}`);
+		// console.log(`currentItem = ${currentItem}`);
+		// console.log(`todos[i].completed = ${todos[i].completed}`);
 
 		if(+todos[i].id === +currentItem && todos[i].completed === false){
-			console.log('ala');
+			// console.log('case 1');
 			todos[i].completed = true;
-			console.log(todos);
+			// console.log(todos);
 			return;
 		}else if(+todos[i].id === +currentItem && todos[i].completed === true){
-			console.log('bala');
+			// console.log('case 2');
 			todos[i].completed  = false;
-			console.log(todos);
+			// console.log(todos);
 			return;
 		}
 	}
@@ -163,6 +157,7 @@ const completeTodoInArray = function(){
 
 // DOM cache:
 const nodes = {
+	'todoItems': document.querySelector('ul.todo-items'),
 	'todoItems': document.querySelector('ul.todo-items'),
 	'addTodoInput': document.querySelector('.todo-add>input'),
 	'addTodoBtn': document.querySelector('.todo-add>.todo-add-btn'),
@@ -189,7 +184,6 @@ let todos = [
 		"completed":false
 	}
 ];
-
 
 console.log(todos);
 
