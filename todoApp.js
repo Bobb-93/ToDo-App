@@ -11,8 +11,6 @@ const displayCompletedItemsCount = function() {
 	for (let i = 0; i < todos.length; i++) {
 		if(todos[i].completed === true){
 			count += 1;
-		}else{
-			count -= 1;
 		}
 	}
 	nodes.completedItemsCount.innerHTML = count;
@@ -26,10 +24,10 @@ const renderTodos = function(e) {
 	
 	// add todo item at the end
 	todos.forEach( todo => {
-		console.log(`$$$$`);
-		console.log(`todo.id = ${todo.id}`);
-		console.log(`todo.completed = ${todo.completed}`);
-		console.log(`todo.title = ${todo.title}`);
+		// console.log(`$$$$`);
+		// console.log(`todo.id = ${todo.id}`);
+		// console.log(`todo.completed = ${todo.completed}`);
+		// console.log(`todo.title = ${todo.title}`);
 
 		nodes.todoItems.innerHTML += `
 		<li data-id=${todo.id}  class="${todo.completed?'completed':''}">
@@ -39,7 +37,7 @@ const renderTodos = function(e) {
 		<div class="completeTodo"><i class="far fa-square"></i></div>
 		</li>
 		`;
-		console.log(`$$$$`);
+		// console.log(`$$$$`);
 	})
 	
 	displayTodoItemsCount();
@@ -99,44 +97,49 @@ const removeTodo = function (e) {
 }
 
 const completeTodo = function (e) {
-	if (e.target.tagName === "DIV"){
+	// if (e.target.tagName === "DIV"){
+	if(e.target.parentNode.classList.contains("removeTodo")){
 		return;
 	}
 
+	let targetNode;
 	// if we click NOT exactly on the list items:
 	if (e.target.tagName === "LI"){
-		e.target.classList.toggle('completed');
-		console.log(e.target.dataset.id);
+		targetNode = e.target;
+
+		// console.log(e.target.dataset.id);
 
 		currentItem = e.target.dataset.id;
-		console.log(currentItem);
+		// console.log(currentItem);
 	}
 	//if we click exactly on the list items:
 	else if (e.target.tagName === "SPAN"){
-		e.target.parentNode.classList.toggle('completed');
-		console.log(e.target.parentNode.dataset.id);
+		targetNode = e.target.parentNode;
+
+		// console.log(e.target.parentNode.dataset.id);
 
 		currentItem = e.target.parentNode.dataset.id;
-		console.log(currentItem);
+		// console.log(currentItem);
 	}
 	//if we click on the checkboxes:
 	// else if (e.target.parentNode.tagName === "DIV"){
 	else if (e.target.parentNode.classList.contains("completeTodo")){
 		e.target.classList.toggle('fa-square');
 		e.target.classList.toggle('fa-check-square');
-		e.target.parentNode.parentNode.classList.toggle('completed');
+
+		targetNode = e.target.parentNode.parentNode;
 		
-		console.log(e.target.parentNode.parentNode.dataset.id);
+		// console.log(e.target.parentNode.parentNode.dataset.id);
 
 		currentItem = e.target.parentNode.parentNode.dataset.id;
-		console.log(currentItem);
+		// console.log(currentItem);
 	}
 
-	console.log(`currentItem = ${currentItem}`);
+	targetNode.classList.toggle('completed');
+	// console.log(`currentItem = ${currentItem}`);
 	displayCompletedItemsCount();
 	completeTodoInArray();
 
-	
 }
 
 const completeTodoInArray = function(){
