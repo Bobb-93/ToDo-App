@@ -156,3 +156,7 @@ header {
 .completed {
   text-decoration: line-through;
 }
+
+.fa-check-square {
+  color: #0F0;
+}
