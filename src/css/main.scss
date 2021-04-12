@@ -1,3 +1,5 @@
+$main-color: aquamarine;
+
 /* stretch icon to containing div */
 body {
 	background: #333;
@@ -5,7 +7,7 @@ body {
 }
 header {
 	font-size: 2em;
-	color: aquamarine;
+	color: $main-color;
 	text-align: center;
 }
 .todo-app {
@@ -21,10 +23,10 @@ header {
 	>input {
 		width: 98%;
 		height: 3em;
-		border: 1px solid aquamarine;
-		outline: aquamarine;
+		border: 1px solid $main-color;
+		outline: $main-color;
 		&:focus {
-			border: 1px solid aquamarine;
+			border: 1px solid $main-color;
 		}
 	}
 	>.todo-add-btn {
@@ -40,7 +42,7 @@ header {
 		font-size: 1em;
 		margin-left: -3em;
 		border-radius: 100%;
-		background: aquamarine;
+		background: $main-color;
 		border: none;
 		outline: none;
 		cursor: pointer;

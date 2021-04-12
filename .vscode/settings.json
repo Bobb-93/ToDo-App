@@ -1,0 +1,18 @@
+{
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            // / -> denotes relative to the workspace root
+            "savePath": "/dist/css",
+        },
+        {
+            "format": "compressed",
+            "extensionName": ".min.css",
+            
+            // / -> denotes relative to the workspace root
+            "savePath": "/dist/css"
+        },
+    ],
+    "liveSassCompile.settings.generateMap": false,
+}
