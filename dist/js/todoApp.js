@@ -143,12 +143,12 @@ const completeTodoInArray = function(){
 		// console.log(`currentItem = ${currentItem}`);
 		// console.log(`todos[i].completed = ${todos[i].completed}`);
 
-		if(+todos[i].id === +currentItem && todos[i].completed === false){
+		if(todos[i].id === +currentItem && todos[i].completed === false){
 			// console.log('case 1');
 			todos[i].completed = true;
 			// console.log(todos);
 			return;
-		}else if(+todos[i].id === +currentItem && todos[i].completed === true){
+		}else if(todos[i].id === +currentItem && todos[i].completed === true){
 			// console.log('case 2');
 			todos[i].completed  = false;
 			// console.log(todos);
