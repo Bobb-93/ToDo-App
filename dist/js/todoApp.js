@@ -36,7 +36,7 @@ const renderTodos = function(e) {
 		<div class="completeTodo"><i class="far ${todo.completed?'fa-check-square':'fa-square'}"></i></div>
 		</li>
 		`;
-	})
+	});
 	
 	displayTodoItemsCount();
 	displayCompletedItemsCount();
@@ -76,7 +76,7 @@ const removeTodo = function (e) {
 	if(e.target.classList.contains('fa-trash-alt')){
 		todoID = +e.target.parentNode.parentNode.dataset.id;
 	}else if( e.target.classList.contains('removeTodo')){
-		// if icon is streatched to div.removeTodo => this is not needed
+		// if icon is stretched to div.removeTodo => this is not needed
 		todoID = +e.target.parentNode.dataset.id;
 	}else{
 		return;
@@ -105,14 +105,15 @@ const completeTodo = function (e) {
 
 	let targetNode;
 	let targetSquare;
-	// if we click NOT exactly on the list items:
+	// if we click NOT exactly on empty space inside the list items
+	//(NOT on the spans):
 	if (e.target.tagName === "LI"){
 		targetNode = e.target;
 		targetSquare = e.target.children[3].children[0];
 		currentItem = e.target.dataset.id;
 		// console.log(currentItem);
 	}
-	//if we click exactly on the list items:
+	//if we click exactly on the spans inside the list items:
 	else if (e.target.tagName === "SPAN"){
 		targetNode = e.target.parentNode;
 		targetSquare = e.target.parentNode.children[3].children[0];
@@ -160,7 +161,6 @@ const completeTodoInArray = function(){
 // DOM cache:
 const nodes = {
 	'todoItems': document.querySelector('ul.todo-items'),
-	'todoItems': document.querySelector('ul.todo-items'),
 	'addTodoInput': document.querySelector('.todo-add>input'),
 	'addTodoBtn': document.querySelector('.todo-add>.todo-add-btn'),
 	'totalItemsCount': document.querySelector('.todo-app .todos-total>.output'),
@@ -171,8 +171,8 @@ let currentItem;
 
 // let localStorage = window.localStorage;
 
-// create todos array of todo objects from LocalStorage data
-// note, that localStorage.getItem() returns data as string
+// Create todos array of todo objects from LocalStorage data
+// Note, that localStorage.getItem() returns data as string
 // let todos = JSON.parse(localStorage.getItem('todos')) || [];
 let todos = [
 	{
@@ -203,10 +203,10 @@ nodes.addTodoInput.addEventListener('keyup', function(e) {
 	if(e.keyCode === 13){
 		addTodo();
 	}
-})
+});
 
 // remove Todo Item:
-nodes.todoItems.addEventListener('click', removeTodo, {capture: true})
+nodes.todoItems.addEventListener('click', removeTodo, {capture: true});
 
-// togleComplete
+// toggleComplete
 nodes.todoItems.addEventListener('click', completeTodo);
