@@ -4,7 +4,7 @@
 const displayTodoItemsCount = function() {
 	let count = todos.length || 0;
 	nodes.totalItemsCount.innerHTML = count;
-}
+};
 
 const displayCompletedItemsCount = function() {
 	let count = 0;
@@ -20,7 +20,7 @@ const displayCompletedItemsCount = function() {
 		}
 	);
 	nodes.completedItemsCount.innerHTML = count;
-}
+};
 
 const renderTodos = function(e) {
 	// clean current todos:
@@ -40,7 +40,7 @@ const renderTodos = function(e) {
 	
 	displayTodoItemsCount();
 	displayCompletedItemsCount();
-}
+};
 
 const addTodo = function() {
 	// get the input text:
@@ -68,7 +68,7 @@ const addTodo = function() {
 	
 	// focus on input for new todo:
 	nodes.addTodoInput.focus();
-}
+};
 
 const removeTodo = function (e) {
 	// get id of todo to be removed
@@ -95,7 +95,7 @@ const removeTodo = function (e) {
 	// render todos:
 	renderTodos();
 	// displayCompletedItemsCount();
-}
+};
 
 const completeTodo = function (e) {
 	// if (e.target.tagName === "DIV"){
@@ -136,7 +136,7 @@ const completeTodo = function (e) {
 	// console.log(`currentItem = ${currentItem}`);
 	completeTodoInArray();
 	renderTodos();
-}
+};
 
 const completeTodoInArray = function(){
 	for (let i = 0; i < todos.length; i++) {
@@ -156,7 +156,7 @@ const completeTodoInArray = function(){
 			return;
 		}
 	}
-}
+};
 
 // DOM cache:
 const nodes = {
@@ -165,11 +165,11 @@ const nodes = {
 	'addTodoBtn': document.querySelector('.todo-add>.todo-add-btn'),
 	'totalItemsCount': document.querySelector('.todo-app .todos-total>.output'),
 	'completedItemsCount': document.querySelector('.todo-app .completed-total>.output')
-}
+};
 
 let currentItem;
 
-// let localStorage = window.localStorage;
+let localStorage = window.localStorage;
 
 // Create todos array of todo objects from LocalStorage data
 // Note, that localStorage.getItem() returns data as string
