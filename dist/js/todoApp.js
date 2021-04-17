@@ -59,6 +59,8 @@ const addTodo = function() {
 	// todos = [...todos, newTodo];
 	todos.push(newTodo);
 	
+	//save data to local storage:
+	localStorage.setItem('todos',JSON.stringify(todos));
 	
 	// render todos:
 	renderTodos();
@@ -135,6 +137,10 @@ const completeTodo = function (e) {
 
 	// console.log(`currentItem = ${currentItem}`);
 	completeTodoInArray();
+
+	//save data to local storage
+	localStorage.setItem('todos',JSON.stringify(todos));
+
 	renderTodos();
 };
 
@@ -173,19 +179,19 @@ let localStorage = window.localStorage;
 
 // Create todos array of todo objects from LocalStorage data
 // Note, that localStorage.getItem() returns data as string
-// let todos = JSON.parse(localStorage.getItem('todos')) || [];
-let todos = [
-	{
-		"id": 3,
-		"title": "LEARN HTML",
-		"completed":false
-	},
-	{
-		"id": 4,
-		"title": "Learn CSS",
-		"completed":false
-	}
-];
+let todos = JSON.parse(localStorage.getItem('todos')) || [];
+// todos = [
+// 	{
+// 		"id": 3,
+// 		"title": "LEARN HTML",
+// 		"completed":false
+// 	},
+// 	{
+// 		"id": 4,
+// 		"title": "Learn CSS",
+// 		"completed":false
+// 	}
+// ];
 
 console.log(todos);
 
