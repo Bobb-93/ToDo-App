@@ -194,14 +194,15 @@ function fetchTodos(url){
 		})
 };
 
-fetchTodos(todosURL);
+// fetchTodos(todosURL);
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // attach events
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// window.addEventListener('DOMContentLoaded', event=>{
-// 	renderTodos();
-// });
+window.addEventListener('DOMContentLoaded', event=>{
+	// renderTodos();
+	fetchTodos(todosURL);
+});
 
 // add Todo Item (on button click or on enter key pressed):
 nodes.addTodoBtn.addEventListener('click', addTodo);
