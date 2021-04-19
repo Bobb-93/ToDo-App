@@ -60,7 +60,7 @@ const addTodo = function() {
 	todos.push(newTodo);
 	
 	//save data to local storage:
-	localStorage.setItem('todos',JSON.stringify(todos));
+	// localStorage.setItem('todos',JSON.stringify(todos));
 	
 	// render todos:
 	renderTodos();
@@ -92,7 +92,7 @@ const removeTodo = function (e) {
 	
 	// save to local storage
 	// note, that localStorage.setItem() expects the second argument to be string
-	localStorage.setItem('todos', JSON.stringify(todos));
+	// localStorage.setItem('todos', JSON.stringify(todos));
 	
 	// render todos:
 	renderTodos();
@@ -139,7 +139,7 @@ const completeTodo = function (e) {
 	completeTodoInArray();
 
 	//save data to local storage
-	localStorage.setItem('todos',JSON.stringify(todos));
+	// localStorage.setItem('todos',JSON.stringify(todos));
 
 	renderTodos();
 };
@@ -175,32 +175,33 @@ const nodes = {
 
 let currentItem;
 
-let localStorage = window.localStorage;
+// let localStorage = window.localStorage;
 
 // Create todos array of todo objects from LocalStorage data
 // Note, that localStorage.getItem() returns data as string
-let todos = JSON.parse(localStorage.getItem('todos')) || [];
-// todos = [
-// 	{
-// 		"id": 3,
-// 		"title": "LEARN HTML",
-// 		"completed":false
-// 	},
-// 	{
-// 		"id": 4,
-// 		"title": "Learn CSS",
-// 		"completed":false
-// 	}
-// ];
+// let todos = JSON.parse(localStorage.getItem('todos')) || [];
+let todos;
 
-console.log(todos);
+let todosURL = "https://jsonplaceholder.typicode.com/todos";
+
+function fetchTodos(url){
+	fetch(url)
+		.then(response => response.json())
+		.then(data => {
+			todos = data;
+			// console.dir(todos);
+			renderTodos();
+		})
+};
+
+fetchTodos(todosURL);
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // attach events
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-window.addEventListener('DOMContentLoaded', event=>{
-	renderTodos();
-});
+// window.addEventListener('DOMContentLoaded', event=>{
+// 	renderTodos();
+// });
 
 // add Todo Item (on button click or on enter key pressed):
 nodes.addTodoBtn.addEventListener('click', addTodo);
