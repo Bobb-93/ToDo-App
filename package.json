@@ -1,0 +1,23 @@
+{
+  "name": "todoapp_vanillajs",
+  "version": "1.0.0",
+  "description": "My first npm project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bobb-93/ToDo-App.git"
+  },
+  "author": "Boris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bobb-93/ToDo-App/issues"
+  },
+  "homepage": "https://github.com/Bobb-93/ToDo-App#readme",
+  "keywords": [],
+  "devDependencies": {
+    "json-server": "^0.16.3"
+  }
+}
